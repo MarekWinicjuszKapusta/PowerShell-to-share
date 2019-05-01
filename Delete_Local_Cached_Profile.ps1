@@ -285,7 +285,7 @@ $button_asset = New-Object System.Windows.Forms.Button
     })  
     $form_HelloWorld.Controls.add($button_asset)
 
-#Button to load primary asset tag groups
+#Button to load local cached profiles
 $button_loada = New-Object System.Windows.Forms.Button  
     $button_loada.Location = New-Object System.Drawing.Size(188,8)  
     $button_loada.Size = New-Object System.Drawing.Size(58,32)  
