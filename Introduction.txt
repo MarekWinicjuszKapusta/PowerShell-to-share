@@ -2,3 +2,39 @@ Hi,
 In this repository you can find my scripts that i made to ease life of Service Desk Agents (+myself).
 
 Feel free to use them.
+
+Delete Local Cached profile:
+-----------------------------------------------------------------------
+
+  Script with GUI to remove local cached profile from remote machine.
+  RSAT is needed to check if computer asset is avilable as AD object.
+  Tested for PowerShell 5.1
+
+  Instruction:
+  1. Press 'Set'  button, and enter asset tag.
+     If font changed to red, asset was not found in Active Directory.
+     You can also enter IPv4, but font will also change to red.
+    
+  2. Press 'Load' to fill ListView window with profiles found on computer.
+    
+  3. Hover pointer over username of the profile that you want to delete, and perform right click mouse operation.
+    
+  4. Select 'Delete Profile'
+     Profile can be deleted only if 'Loaded' is set to 'False', that means user was fully signed out.
+     If user 'Loaded' status is set to 'True' even after sign out, restart machine, and then after user gets to logon screen, press          'Load' button once again.
+     
+     
+AD Compare:
+-----------------------------------------------------------------------
+  
+  Script with GUI to manage Active direcory objects, specially usefull when we want to generate RSOP or compare membership of 2 objects.
+  RSAT is needed.
+  Tested for PowerShell 5.1
+  
+  Instruction:
+    Press set button to enter AD object (primary user, equivalent user, primary computer or equivalent computer).
+    Press load to drop data from AD on ListView.
+    Press "users" to compare primary and equivalent user groups.
+    Press "comp" to compare primary and equivalent computer groups.
+    To display context menu, press right mouse action when pointer hover over ListView.
+    All function buttons are working, so feel free to test them.
