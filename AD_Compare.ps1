@@ -1,4 +1,6 @@
-#Script made by Marek Winicjusz Kapusta for internal use of Fujitsu Technology Solutions.
+#Script made by Marek Winicjusz Kapusta
+#Main purpose of this script is to compare Active Directory objects and find the differences
+#Script is easy to use because of introduction of Graphical User Interface
 
 #ver 1.1 added Out-Gridview button
 #ver 1.2 added GPRSoP
