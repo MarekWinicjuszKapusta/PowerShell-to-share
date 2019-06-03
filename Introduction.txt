@@ -21,7 +21,8 @@ Delete Local Cached profile:
     
   4. Select 'Delete Profile'
      Profile can be deleted only if 'Loaded' is set to 'False', that means user was fully signed out.
-     If user 'Loaded' status is set to 'True' even after sign out, restart machine, and then after user gets to logon screen, press          'Load' button once again.
+     If user 'Loaded' status is set to 'True' even after sign out, restart machine, and then after user gets to logon screen, press
+     'Load' button once again.
      
      
 AD Compare:
