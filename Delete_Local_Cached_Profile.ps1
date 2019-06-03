@@ -1,4 +1,6 @@
-#Script made by Marek Winicjusz Kapusta for internal use of Fujitsu Technology Solutions.
+#Script made by Marek Winicjusz Kapusta
+#Main purpose of this script is remotely remove local cached profiles
+#Script is easy to use because of introduction of Graphical User Interface
 
 #ver 1.3 Added Creator label
 #ver 1.4 Added instruction, moved creator label a little
