@@ -1,0 +1,4 @@
+Hi,
+In this repository you can find my scripts that i made to ease life of Service Desk Agents (+myself).
+
+Feel free to use them.
