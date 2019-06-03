@@ -1,7 +1,10 @@
 #Script made by Marek Winicjusz Kapusta for internal use of Fujitsu Technology Solutions.
 
 #ver 1.3 Added Creator label
-#ver 1.4 Added instruction, moved creator label a little.
+#ver 1.4 Added instruction, moved creator label a little
+#ver 1.5 code cleanup, made function for load
+#ver 1.6 Little bug with cleaning left overs fixed by creating new variable
+#ver 1.7 Script will indicate when removing left overs from home folder
 
 #Load required assemblies  
 [void] [system.reflection.assembly]::LoadWithPartialName("System.Windows.Forms")  
@@ -9,7 +12,63 @@
 #For MsgBoxInput
 Add-Type -AssemblyName PresentationFramework
 
-#List of variables
+#Functions
+#----------------------------------------------------------------------------------------
+
+function load {
+
+    $form_HelloWorld.Text = "Loading..."
+    $form_HelloWorld.ForeColor = "red"
+
+ #clear content of columns
+        $ListView.Items.Clear()
+
+        #get folders from C:/users
+        $child = get-childitem -Path "//$asset/c$/users"
+        $child |
+        ForEach-Object{
+        #a----------
+        #get name of the folder from c:/users.
+        $a = $_.name
+        #b----------
+        #find out if user is logged in. Get that info from local cached profile.
+        $hook = Get-WmiObject -ComputerName "$asset" Win32_UserProfile -Filter "LocalPath like '%$a%'"
+        $hook_loaded = $hook.loaded
+        If($hook_loaded -eq $true)
+        { $b = "True" }
+        elseif($hook_loaded -eq $false) 
+        { $b = "False" }
+        else {$b = " " }
+        #c----------
+        #check when was the last time that folder was modified.
+        $c = $_.lastwritetime | out-string
+        #d----------
+        #find security ID of local cached profile.
+        $d = $hook.sid
+
+        #creating Powershell custom object to list informations mentioned above on ListView
+        $custom = [pscustomobject]@{
+              Name=$a
+              Loaded=$b
+              LastWriteTime=$c
+              SID=$d
+        
+           
+        }
+        #Creating items based on PSCustom Object
+        $ListViewItem = New-Object System.Windows.Forms.ListViewItem($custom.name)
+        $ListViewItem.Subitems.Add($custom.loaded) | Out-Null
+        $ListViewItem.Subitems.Add($custom.lastwritetime) | Out-Null
+        $ListViewItem.Subitems.Add($custom.SID) | Out-Null
+        $ListView.Items.Add($ListViewItem) | Out-Null
+    }         
+    $form_HelloWorld.Text = "Delete local cached profile"
+    $form_HelloWorld.ForeColor = "black"  
+}
+#end of load
+#--------------------------------------------------------------------------------
+
+#variables
 
 $asset = "Hostname"
 
@@ -66,6 +125,8 @@ $contextMenuStrip1 = New-Object System.Windows.Forms.ContextMenuStrip
     
     $profile_to_delete = Get-WmiObject -ComputerName $asset Win32_UserProfile -Filter "LocalPath like '%$_%'"
     
+    $username = $_ 
+
         If ( $profile_to_delete.loaded -eq $true )       
            {
            $wshell = New-Object -ComObject Wscript.Shell
@@ -84,10 +145,12 @@ $contextMenuStrip1 = New-Object System.Windows.Forms.ContextMenuStrip
                     If($? -eq $false)
                         {
                         $wshell = New-Object -ComObject Wscript.Shell
-                        $wshell.Popup("Operation Failed: Unable to delete local cached profile for $_")
+                        $wshell.Popup("Operation Failed: Unable to fully delete local cached profile for $username")
                         }
 					#removing any leftovers
-					remove-item -Path "//$asset/c$/users/$_" -Force -Recurse
+					$form_HelloWorld.Text = "Removing leftovers from $username home folder..."
+    				$form_HelloWorld.ForeColor = "red" 
+					remove-item -Path "//$asset/c$/users/$username" -Force -Recurse
                     #end of "yes"
   					}
 
@@ -107,52 +170,10 @@ $contextMenuStrip1 = New-Object System.Windows.Forms.ContextMenuStrip
     #------------------------
     #start load
 
-        #clear content of columns
-        $ListView.Items.Clear()
+    load
 
-        #get folders from C:/users
-        $child = get-childitem -Path "//$asset/c$/users"
-        $child |
-        ForEach-Object{
-        #a----------
-        #get name of the folder from c:/users.
-        $a = $_.name
-        #b----------
-        #find out if user is logged in. Get that info from local cached profile.
-        $hook = Get-WmiObject -ComputerName "$asset" Win32_UserProfile -Filter "LocalPath like '%$a%'"
-        $hook_loaded = $hook.loaded
-        If($hook_loaded -eq $true)
-        { $b = "True" }
-        elseif($hook_loaded -eq $false) 
-        { $b = "False" }
-        else {$b = " " }
-        #c----------
-        #check when was the last time that folder was modified.
-        $c = $_.lastwritetime | out-string
-        #d----------
-        #find security ID of local cached profile.
-        $d = $hook.sid
+    #end of load
 
-        #creating Powershell custom object to list informations mentioned above on ListView
-        $custom = [pscustomobject]@{
-              Name=$a
-              Loaded=$b
-              LastWriteTime=$c
-              SID=$d
-        
-           
-        }
-        #Creating items based on PSCustom Object
-        $ListViewItem = New-Object System.Windows.Forms.ListViewItem($custom.name)
-        $ListViewItem.Subitems.Add($custom.loaded) | Out-Null
-        $ListViewItem.Subitems.Add($custom.lastwritetime) | Out-Null
-        $ListViewItem.Subitems.Add($custom.SID) | Out-Null
-        $ListView.Items.Add($ListViewItem) | Out-Null
-    }  
-    #end of load   
-
-    $form_HelloWorld.Text = "Delete local cached profile"
-    $form_HelloWorld.ForeColor = "black"  
     })
 
 #end of Delete Profile right-click option
@@ -198,52 +219,10 @@ $contextMenuStrip1 = New-Object System.Windows.Forms.ContextMenuStrip
     #------------------------
     #start load
 
-        #clear content of columns
-        $ListView.Items.Clear()
-
-        #get folders from C:/users
-        $child = get-childitem -Path "//$asset/c$/users"
-        $child |
-        ForEach-Object{
-        #a----------
-        #get name of the folder from c:/users.
-        $a = $_.name
-        #b----------
-        #find out if user is logged in. Get that info from local cached profile.
-        $hook = Get-WmiObject -ComputerName "$asset" Win32_UserProfile -Filter "LocalPath like '%$a%'"
-        $hook_loaded = $hook.loaded
-        If($hook_loaded -eq $true)
-        { $b = "True" }
-        elseif($hook_loaded -eq $false) 
-        { $b = "False" }
-        else {$b = " " }
-        #c----------
-        #check when was the last time that folder was modified.
-        $c = $_.lastwritetime | out-string
-        #d----------
-        #find security ID of local cached profile.
-        $d = $hook.sid
-
-        #creating Powershell custom object to list informations mentioned above on ListView
-        $custom = [pscustomobject]@{
-              Name=$a
-              Loaded=$b
-              LastWriteTime=$c
-              SID=$d
+    load
         
-           
-        }
-        #Creating items based on PSCustom Object
-        $ListViewItem = New-Object System.Windows.Forms.ListViewItem($custom.name)
-        $ListViewItem.Subitems.Add($custom.loaded) | Out-Null
-        $ListViewItem.Subitems.Add($custom.lastwritetime) | Out-Null
-        $ListViewItem.Subitems.Add($custom.SID) | Out-Null
-        $ListView.Items.Add($ListViewItem) | Out-Null
-    }  
     #end of load   
-
-    $form_HelloWorld.Text = "Delete local cached profile"
-    $form_HelloWorld.ForeColor = "black"  
+ 
     })
 
     #end of options
@@ -254,7 +233,7 @@ $contextMenuStrip1 = New-Object System.Windows.Forms.ContextMenuStrip
 #-------------------------------------------------------------------------------------
 
 
-#Label Primary Asset  
+#Label hostname  
 $label_asset = New-Object System.Windows.Forms.Label  
     $label_asset.Location = New-Object System.Drawing.Size(8,8)  
     $label_asset.Size = New-Object System.Drawing.Size(116,32)  
@@ -262,7 +241,7 @@ $label_asset = New-Object System.Windows.Forms.Label
     $label_asset.Text = "$asset"
     $form_HelloWorld.Controls.Add($label_asset)  
 
-#Button to set Primary Asset
+#Button to set hostname
 $button_asset = New-Object System.Windows.Forms.Button  
     $button_asset.Location = New-Object System.Drawing.Size(124,8)  
     $button_asset.Size = New-Object System.Drawing.Size(58,32)  
@@ -285,59 +264,14 @@ $button_asset = New-Object System.Windows.Forms.Button
     })  
     $form_HelloWorld.Controls.add($button_asset)
 
-#Button to load local cached profiles
+#Button to load profiles
 $button_loada = New-Object System.Windows.Forms.Button  
     $button_loada.Location = New-Object System.Drawing.Size(188,8)  
     $button_loada.Size = New-Object System.Drawing.Size(58,32)  
     $button_loada.TextAlign = "MiddleCenter"  
     $button_loada.Text = "Load" 
     $button_loada.BackColor = "white"
-    $button_loada.Add_Click({
-        
-        #clear content of columns
-        $ListView.Items.Clear()
-
-        #get folders from C:/users
-        $child = get-childitem -Path "//$asset/c$/users"
-        $child |
-        ForEach-Object{
-        #a----------
-        #get name of the folder from c:/users.
-        $a = $_.name
-        #b----------
-        #find out if user is logged in. Get that info from local cached profile.
-        $hook = Get-WmiObject -ComputerName "$asset" Win32_UserProfile -Filter "LocalPath like '%$a%'"
-        $hook_loaded = $hook.loaded
-        If($hook_loaded -eq $true)
-        { $b = "True" }
-        elseif($hook_loaded -eq $false) 
-        { $b = "False" }
-        else {$b = " " }
-        #c----------
-        #check when was the last time that folder was modified.
-        $c = $_.lastwritetime | out-string
-        #d----------
-        #find security ID of local cached profile.
-        $d = $hook.sid
-
-        #creating Powershell custom object to list informations mentioned above on ListView
-        $custom = [pscustomobject]@{
-              Name=$a
-              Loaded=$b
-              LastWriteTime=$c
-              SID=$d
-        
-           
-        }
-        #Creating items based on PSCustom Object
-        $ListViewItem = New-Object System.Windows.Forms.ListViewItem($custom.name)
-        $ListViewItem.Subitems.Add($custom.loaded) | Out-Null
-        $ListViewItem.Subitems.Add($custom.lastwritetime) | Out-Null
-        $ListViewItem.Subitems.Add($custom.SID) | Out-Null
-        $ListView.Items.Add($ListViewItem) | Out-Null
-    }         
-     
-    })  
+    $button_loada.Add_Click({load})  
     $form_HelloWorld.Controls.add($button_loada)
 
 #Instruction
