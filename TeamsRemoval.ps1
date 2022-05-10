@@ -1,4 +1,4 @@
-#Script stolen from Wdomon by Marek Kapusta. Thanks a lot dude, you saved my life.
+#functions stolen from Wdomon by Marek Kapusta. Thanks a lot dude, you saved my life.
 #Function to generate a timestamp that is added to the log file
 function Get-TimeStamp {
     return "[{0:MM/dd/yy} {0:HH:mm:ss}]" -f (Get-Date)   
