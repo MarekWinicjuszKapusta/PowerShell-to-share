@@ -28,8 +28,6 @@ function removeLeftOvers{
             while((Test-Path $Path)-and($attemp -le 10)){
             Start-Sleep -Seconds 10
             LogWrite "$attemp attempt to delete $path"
-            Write-Host $Path
-            Write-Host $attemp
             Get-ChildItem $path | Remove-Item -Recurse -Confirm:$false
             remove-item $Path -Recurse -Confirm:$false
             $attemp++
