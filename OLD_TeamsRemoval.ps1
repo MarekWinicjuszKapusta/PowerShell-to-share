@@ -77,14 +77,13 @@ else{
         if (Test-Path "$($ENV:SystemDrive)\Users\$($_.Name)\AppData\Local\Microsoft\Teams\update.exe") { 
             try {
                 LogWrite "Teams folder with update.exe found for user $($_.Name), uninstalling MS Teams..."
-                Start-Process -FilePath "$($ENV:SystemDrive)\Users\$($_.Name)\AppData\Local\Microsoft\Teams\Update.exe" -ArgumentList "-uninstall -s" -EA Stop
-                #Start-Sleep -Seconds 60            
+                #Start-Process -FilePath "$($ENV:SystemDrive)\Users\$($_.Name)\AppData\Local\Microsoft\Teams\Update.exe" -ArgumentList "-uninstall -s" -EA Stop            
                 removeLeftOvers -path "C:\Users\$($_.Name)\AppData\Roaming\Microsoft\teams"
                 removeLeftOvers -path "C:\Users\$($_.Name)\AppData\Roaming\teams"
-                removeLeftOvers -path "C:\Users\$($_.Name)\AppData\local\Microsoft\teams"
-                removeLeftOvers -path "C:\Users\$($_.Name)\AppData\local\Microsoft\teamsMeetingAddin"
-                removeLeftOvers -path "C:\Users\$($_.Name)\AppData\local\Microsoft\teamsPresenceAddin"
-                removeLeftOvers -path "C:\Users\$($_.Name)\AppData\local\Microsoft\SquirrelTemp"
+                #removeLeftOvers -path "C:\Users\$($_.Name)\AppData\local\Microsoft\teams"
+                #removeLeftOvers -path "C:\Users\$($_.Name)\AppData\local\Microsoft\teamsMeetingAddin"
+                #removeLeftOvers -path "C:\Users\$($_.Name)\AppData\local\Microsoft\teamsPresenceAddin"
+                #removeLeftOvers -path "C:\Users\$($_.Name)\AppData\local\Microsoft\SquirrelTemp"
             
             }
             Catch { 
