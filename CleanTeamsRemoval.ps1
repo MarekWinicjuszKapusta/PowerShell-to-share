@@ -58,6 +58,7 @@ function removeLeftOvers{
 LogWrite "** STARTING Clean Teams Removal Script **"
 write-host "** STARTING Clean Teams Removal Script **"
 $username = ((Get-WMIObject -ClassName Win32_ComputerSystem).Username).Split('\')[1]
+msg * "Starting Clean Teams Removal Script, please wait."
 if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\update.exe") { 
             try {
                 LogWrite "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
@@ -73,6 +74,7 @@ if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams
             Catch { 
             LogWrite "Teams app Uninstall for user $username Failed! Error Message:"
             write-host "Teams app Uninstall for user $username Failed! Error Message:"
+            msg * "Teams app Uninstall for user $username Failed!"
             LogWrite $_.Exception.Message
             write-host $_.Exception.Message
             Out-Null
@@ -81,8 +83,9 @@ if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams
 else{
     LogWrite "MS Teams for $username not found"
     write-host "MS Teams for $username not found"
+    msg * "MS Teams for $username not found."
 }
 
-LogWrite "** ENDING Uninstall MS Teams Script **"
-write-host "** ENDING Uninstall MS Teams Script **"
-read-host "Press enter to close this window"
+LogWrite "** ENDING Clean Teams Removal Script **"
+write-host "** ENDING Clean Teams Removal Script **"
+msg * "End of Clean Teams Removal Script, please restart device."
