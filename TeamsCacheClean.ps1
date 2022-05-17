@@ -58,6 +58,7 @@ function removeLeftOvers{
 
 LogWrite "** STARTING Teams Cache Clean Script **"
 Stop-Process -Name "teams" -force
+tskill outlook
 $username = ((Get-WMIObject -ClassName Win32_ComputerSystem).Username).Split('\')[1]          
 removeLeftOvers -path "C:\Users\$username\AppData\Roaming\Microsoft\teams"
 removeLeftOvers -path "C:\Users\$username\AppData\Roaming\teams"
