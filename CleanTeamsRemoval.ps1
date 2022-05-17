@@ -59,6 +59,7 @@ LogWrite "** STARTING Clean Teams Removal Script **"
 write-host "** STARTING Clean Teams Removal Script **"
 $username = ((Get-WMIObject -ClassName Win32_ComputerSystem).Username).Split('\')[1]
 msg * "Starting Clean Teams Removal Script, please wait."
+tskill outlook
 if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\update.exe") { 
             try {
                 LogWrite "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
