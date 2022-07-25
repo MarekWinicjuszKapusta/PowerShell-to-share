@@ -62,10 +62,11 @@ write-host "** STARTING Clean Teams Removal Script **"
 #checking if Teams Wide Installer is installed
 #if Teams Wide installer is not installed, teams won't reinstall after device is restarted, leaving user without MS Teams
 if(test-path "C:\Program Files (x86)\Teams Installer\Teams.exe"){
-    $user = (Get-WMIObject -query "SELECT * FROM win32_Process WHERE Name ='explorer.exe'" | Foreach { $owner = $_.GetOwner(); $_ | Add-Member -MemberType "Noteproperty" -name "Owner" -value $("{0}\{1}" -f $owner.Domain, $owner.User) -passthru }).Owner
-    $username = $user[0].Split('\')[1]
     tskill outlook
-    if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\update.exe") { 
+    $user = (Get-WMIObject -query "SELECT * FROM win32_Process WHERE Name ='explorer.exe'" | Foreach { $owner = $_.GetOwner(); $_ | Add-Member -MemberType "Noteproperty" -name "Owner" -value $("{0}\{1}" -f $owner.Domain, $owner.User) -passthru }).Owner
+    $username = $user.Split('\')[1]
+    foreach($record in $username){
+        if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\update.exe") { 
                 try {
                     LogWrite "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
                     write-host "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
@@ -85,9 +86,10 @@ if(test-path "C:\Program Files (x86)\Teams Installer\Teams.exe"){
                 Out-Null
                 }
             }
-    else{
-        LogWrite "MS Teams for $username not found"
-        write-host "MS Teams for $username not found"
+        else{
+            LogWrite "MS Teams for $username not found"
+            write-host "MS Teams for $username not found"
+        }
     }
     
     LogWrite "** ENDING Clean Teams Removal Script **"
@@ -98,3 +100,4 @@ else{
     write-host "** Warning! MS team wide installer is not installed **"
     write-host "Before running script, please install MS Teams machine wide installer x64"
 }
+read-host "Press enter to close the script"
