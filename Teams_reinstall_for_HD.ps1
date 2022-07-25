@@ -1,3 +1,5 @@
+Write-host "Script for Clean reinstall of Microsoft Teams. Created by Marek.Kapusta@fujitsu.com"
+
 $ErrorActionPreference = 'SilentlyContinue'
 #Function to generate a timestamp that is added to the log file
 function Get-TimeStamp {
@@ -94,4 +96,5 @@ if(test-path "C:\Program Files (x86)\Teams Installer\Teams.exe"){
 else{
     LogWrite "** Warning! MS team wide installer is not installed **"
     write-host "** Warning! MS team wide installer is not installed **"
+    write-host "Before running script, please install MS Teams machine wide installer x64"
 }
