@@ -100,4 +100,3 @@ else{
     write-host "** Warning! MS team wide installer is not installed **"
     write-host "Before running script, please install MS Teams machine wide installer x64"
 }
-read-host "Press enter to close the script"
