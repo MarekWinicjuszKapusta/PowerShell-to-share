@@ -63,6 +63,7 @@ write-host "** STARTING Clean Teams Removal Script **"
 #if Teams Wide installer is not installed, teams won't reinstall after device is restarted, leaving user without MS Teams
 if(test-path "C:\Program Files (x86)\Teams Installer\Teams.exe"){
     tskill outlook
+    #get users for who explorer is opened for, next script runs for each detected user
     $user = (Get-WMIObject -query "SELECT * FROM win32_Process WHERE Name ='explorer.exe'" | Foreach { $owner = $_.GetOwner(); $_ | Add-Member -MemberType "Noteproperty" -name "Owner" -value $("{0}\{1}" -f $owner.Domain, $owner.User) -passthru }).Owner
     $username = $user.Split('\')[1]
     foreach($record in $username){
