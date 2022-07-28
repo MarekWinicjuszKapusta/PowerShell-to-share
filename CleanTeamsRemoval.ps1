@@ -1,3 +1,5 @@
+Write-host "Script for Clean reinstall of Microsoft Teams. Created by Marek.Kapusta@fujitsu.com"
+
 $ErrorActionPreference = 'SilentlyContinue'
 #Function to generate a timestamp that is added to the log file
 function Get-TimeStamp {
@@ -57,36 +59,45 @@ function removeLeftOvers{
 
 LogWrite "** STARTING Clean Teams Removal Script **"
 write-host "** STARTING Clean Teams Removal Script **"
-$username = ((Get-WMIObject -ClassName Win32_ComputerSystem).Username).Split('\')[1]
-msg * "Starting Clean Teams Removal Script, please wait."
-tskill outlook
-if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\update.exe") { 
-            try {
-                LogWrite "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
-                write-host "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
-                Start-Process -FilePath "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\Update.exe" -ArgumentList "-uninstall -s" -EA Stop            
-                removeLeftOvers -path "C:\Users\$username\AppData\Roaming\Microsoft\teams"
-                removeLeftOvers -path "C:\Users\$username\AppData\Roaming\teams"
-                removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teams"
-                removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teamsMeetingAddin"
-                removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teamsPresenceAddin"
-                removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\SquirrelTemp"
+#checking if Teams Wide Installer is installed
+#if Teams Wide installer is not installed, teams won't reinstall after device is restarted, leaving user without MS Teams
+if(test-path "C:\Program Files (x86)\Teams Installer\Teams.exe"){
+    tskill outlook
+    $user = (Get-WMIObject -query "SELECT * FROM win32_Process WHERE Name ='explorer.exe'" | Foreach { $owner = $_.GetOwner(); $_ | Add-Member -MemberType "Noteproperty" -name "Owner" -value $("{0}\{1}" -f $owner.Domain, $owner.User) -passthru }).Owner
+    $username = $user.Split('\')[1]
+    foreach($record in $username){
+        if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\update.exe") { 
+                try {
+                    LogWrite "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
+                    write-host "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
+                    Start-Process -FilePath "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\Update.exe" -ArgumentList "-uninstall -s" -EA Stop            
+                    removeLeftOvers -path "C:\Users\$username\AppData\Roaming\Microsoft\teams"
+                    removeLeftOvers -path "C:\Users\$username\AppData\Roaming\teams"
+                    removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teams"
+                    removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teamsMeetingAddin"
+                    removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teamsPresenceAddin"
+                    removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\SquirrelTemp"
+                }
+                Catch { 
+                LogWrite "Teams app Uninstall for user $username Failed! Error Message:"
+                write-host "Teams app Uninstall for user $username Failed! Error Message:"
+                LogWrite $_.Exception.Message
+                write-host $_.Exception.Message
+                Out-Null
+                }
             }
-            Catch { 
-            LogWrite "Teams app Uninstall for user $username Failed! Error Message:"
-            write-host "Teams app Uninstall for user $username Failed! Error Message:"
-            msg * "Error: Teams app Uninstall for user $username Failed!"
-            LogWrite $_.Exception.Message
-            write-host $_.Exception.Message
-            Out-Null
-            }
+        else{
+            LogWrite "MS Teams for $username not found"
+            write-host "MS Teams for $username not found"
         }
+    }
+    
+    LogWrite "** ENDING Clean Teams Removal Script **"
+    write-host "** ENDING Clean Teams Removal Script **"
+}#End of the script with installed Windows wide installer
 else{
-    LogWrite "MS Teams for $username not found"
-    write-host "MS Teams for $username not found"
-    msg * "Error: MS Teams for $username not found."
+    LogWrite "** Warning! MS team wide installer is not installed **"
+    write-host "** Warning! MS team wide installer is not installed **"
+    write-host "Before running script, please install MS Teams machine wide installer x64"
 }
-
-LogWrite "** ENDING Clean Teams Removal Script **"
-write-host "** ENDING Clean Teams Removal Script **"
-msg * "End of Clean Teams Removal Script, please restart device."
+read-host "Press enter to close the script"
