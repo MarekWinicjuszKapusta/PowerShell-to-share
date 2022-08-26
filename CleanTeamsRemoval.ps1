@@ -1,4 +1,5 @@
 Write-host "Script for Clean reinstall of Microsoft Teams. Created by Marek.Kapusta@fujitsu.com"
+#last update 25.08.2022
 
 $ErrorActionPreference = 'SilentlyContinue'
 #Function to generate a timestamp that is added to the log file
@@ -63,10 +64,9 @@ write-host "** STARTING Clean Teams Removal Script **"
 #if Teams Wide installer is not installed, teams won't reinstall after device is restarted, leaving user without MS Teams
 if(test-path "C:\Program Files (x86)\Teams Installer\Teams.exe"){
     tskill outlook
-    #get users for who explorer is opened for, next script runs for each detected user
-    $user = (Get-WMIObject -query "SELECT * FROM win32_Process WHERE Name ='explorer.exe'" | Foreach { $owner = $_.GetOwner(); $_ | Add-Member -MemberType "Noteproperty" -name "Owner" -value $("{0}\{1}" -f $owner.Domain, $owner.User) -passthru }).Owner
-    $username = $user.Split('\')[1]
-    foreach($record in $username){
+    $ActiveExplorer = (Get-WMIObject -query "SELECT * FROM win32_Process WHERE Name ='explorer.exe'" | Foreach { $owner = $_.GetOwner(); $_ | Add-Member -MemberType "Noteproperty" -name "Owner" -value $("{0}\{1}" -f $owner.Domain, $owner.User) -passthru }).Owner
+    foreach($user in $ActiveExplorer){
+        $username = $user.Split('\')[1]
         if (Test-Path "$($ENV:SystemDrive)\Users\$username\AppData\Local\Microsoft\Teams\update.exe") { 
                 try {
                     LogWrite "Teams folder with update.exe found for user $username, uninstalling MS Teams..."
@@ -101,3 +101,4 @@ else{
     write-host "** Warning! MS team wide installer is not installed **"
     write-host "Before running script, please install MS Teams machine wide installer x64"
 }
+read-host "Press enter to close the script"
