@@ -1,5 +1,6 @@
 Write-host "Script for Clean reinstall of Microsoft Teams. Created by Marek.Kapusta@fujitsu.com"
 #last update 25.08.2022
+#adding function to restart device after script 05.10.2022
 
 $ErrorActionPreference = 'SilentlyContinue'
 #Function to generate a timestamp that is added to the log file
@@ -95,6 +96,7 @@ if(test-path "C:\Program Files (x86)\Teams Installer\Teams.exe"){
     
     LogWrite "** ENDING Clean Teams Removal Script **"
     write-host "** ENDING Clean Teams Removal Script **"
+    shutdown -r -t 0
 }#End of the script with installed Windows wide installer
 else{
     LogWrite "** Warning! MS team wide installer is not installed **"
