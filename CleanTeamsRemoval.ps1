@@ -96,6 +96,7 @@ if(test-path "C:\Program Files (x86)\Teams Installer\Teams.exe"){
     
     LogWrite "** ENDING Clean Teams Removal Script **"
     write-host "** ENDING Clean Teams Removal Script **"
+    #restart device
     shutdown -r -t 0
 }#End of the script with installed Windows wide installer
 else{
