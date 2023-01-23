@@ -1,7 +1,6 @@
 # Script for Clean reinstall of Microsoft Teams
 # Created by Marek.Kapusta@fujitsu.com
-# Last update: 23.01.2023
-# Adding function to restart device after script: 05.10.2022
+# Last update: 23.01.2023 14:12
 
 $ErrorActionPreference = 'SilentlyContinue'
 
@@ -75,12 +74,12 @@ Stop-Process -Name "Outlook" -ErrorAction SilentlyContinue
 # Close Teams
 Stop-Process -Name "Teams" -ErrorAction SilentlyContinue
 
-removeLeftOvers -path "C:\Users\$username\AppData\Roaming\Microsoft\teams"
-removeLeftOvers -path "C:\Users\$username\AppData\Roaming\teams"
-removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teams"
-removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teamsMeetingAddin"
-removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\teamsPresenceAddin"
-removeLeftOvers -path "C:\Users\$username\AppData\local\Microsoft\SquirrelTemp"
+removeLeftOvers -path "C:\Users\$env:UserName\AppData\Roaming\Microsoft\teams"
+removeLeftOvers -path "C:\Users\$env:UserName\AppData\Roaming\teams"
+removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\teams"
+removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\teamsMeetingAddin"
+removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\teamsPresenceAddin"
+removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\SquirrelTemp"
     
 LogWrite "** ENDING Teams Cache Removal Script **"
 write-host "** ENDING Teams Cache Removal Script **"
