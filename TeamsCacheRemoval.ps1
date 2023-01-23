@@ -83,5 +83,3 @@ removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\SquirrelTe
     
 LogWrite "** ENDING Teams Cache Removal Script **"
 write-host "** ENDING Teams Cache Removal Script **"
-
-read-host "Press enter to close the script"
