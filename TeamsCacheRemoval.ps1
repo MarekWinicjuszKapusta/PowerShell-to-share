@@ -76,7 +76,6 @@ Stop-Process -Name "Teams" -ErrorAction SilentlyContinue
 
 removeLeftOvers -path "C:\Users\$env:UserName\AppData\Roaming\Microsoft\teams"
 removeLeftOvers -path "C:\Users\$env:UserName\AppData\Roaming\teams"
-removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\teams"
 removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\teamsMeetingAddin"
 removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\teamsPresenceAddin"
 removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\SquirrelTemp"
