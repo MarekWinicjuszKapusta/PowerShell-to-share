@@ -1,6 +1,6 @@
 # Script for Clean reinstall of Microsoft Teams
 # Created by Marek.Kapusta@fujitsu.com
-# Last update: 23.01.2023 14:12
+# Last update: 27.02.2023 15:12
 
 $ErrorActionPreference = 'SilentlyContinue'
 
@@ -79,6 +79,12 @@ removeLeftOvers -path "C:\Users\$env:UserName\AppData\Roaming\teams"
 removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\teamsMeetingAddin"
 removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\teamsPresenceAddin"
 removeLeftOvers -path "C:\Users\$env:UserName\AppData\local\Microsoft\SquirrelTemp"
-    
+
+# start MS Teams
+Start-Process -File "$($env:USERProfile)\AppData\Local\Microsoft\Teams\Update.exe" -ArgumentList '--processStart "Teams.exe"'
+
+# start MS Outlook
+start outlook
+
 LogWrite "** ENDING Teams Cache Removal Script **"
 write-host "** ENDING Teams Cache Removal Script **"
