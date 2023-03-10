@@ -1,0 +1,39 @@
+# Script for OneDrive reinstall
+# Created by Marek.Kapusta@fujitsu.com
+# Last update: 10.03.2023 16:22
+
+# Function to generate a timestamp that is added to the log file
+function Get-TimeStamp {
+    return "[{0:MM/dd/yy} {0:HH:mm:ss}]" -f (Get-Date)
+}
+
+# Function to generate a log file
+$logsDir = "$ENV:SystemDrive\support\logs\apps"
+if (!(Test-Path -Path $logsDir -PathType Container)) {
+    New-Item -ItemType Directory -Path $logsDir | Out-Null
+}
+$LogFile = "$logsDir\OneDrveReinstall.log"
+
+Function LogWrite {
+    Param ([string]$logstring)
+    Add-Content $Logfile -Value "$(Get-TimeStamp) $logstring"
+}
+
+$ErrorActionPreference = 'SilentlyContinue'
+
+LogWrite "** STARTING OneDrive Reinstall Script **"
+
+# Function to check if OneDrive is installed
+function Check-OneDrive {
+    LogWrite "Checking if OneDrive is installed"
+    if( Test-Path "$env:LOCALAPPDATA\Microsoft\Onedrive\OneDrive.exe" ) 
+        {Write-Host "OneDrive is installed"
+        LogWrite "OneDrive is installed"
+    }
+    else {write-host "OneDrive is not installed"
+        LogWrite "OneDrive is not installed"
+    }
+}
+Check-OneDrive
+
+
