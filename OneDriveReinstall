@@ -19,10 +19,6 @@ Function LogWrite {
     Add-Content $Logfile -Value "$(Get-TimeStamp) $logstring"
 }
 
-$ErrorActionPreference = 'SilentlyContinue'
-
-LogWrite "** STARTING OneDrive Reinstall Script **"
-
 # Function to check if OneDrive is installed
 function Check-OneDrive {
     LogWrite "Checking if OneDrive is installed"
@@ -34,6 +30,22 @@ function Check-OneDrive {
         LogWrite "OneDrive is not installed"
     }
 }
+
+$ErrorActionPreference = 'SilentlyContinue'
+
+LogWrite "** STARTING OneDrive Reinstall Script **"
+
 Check-OneDrive
 
+#Uninstalling OneDrive
+Start-Process "C:\Windows\SysWOW64\OneDriveSetup.exe" -ArgumentList " /uninstall"
 
+Check-OneDrive
+
+#Installing OneDrive
+Start-Process "C:\Windows\SysWOW64\OneDriveSetup.exe"
+
+Check-OneDrive
+
+#End of the script
+LogWrite "** End of the OneDrive Reinstall Script **"
