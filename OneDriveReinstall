@@ -17,18 +17,17 @@ $LogFile = "$logsDir\OneDrveReinstall.log"
 Function LogWrite {
     Param ([string]$logstring)
     Add-Content $Logfile -Value "$(Get-TimeStamp) $logstring"
+    Write-Host $logstring
 }
 
 # Function to check if OneDrive is installed
 function Check-OneDrive {
     LogWrite "Checking if OneDrive is installed"
     if( Test-Path "$env:LOCALAPPDATA\Microsoft\Onedrive\OneDrive.exe" ) 
-        {Write-Host "OneDrive is installed"
-        LogWrite "OneDrive is installed"
+        {LogWrite "OneDrive is installed"
         return $true
     }
-    else {write-host "OneDrive is not installed"
-        LogWrite "OneDrive is not installed"
+    else {LogWrite "OneDrive is not installed"
         return $false
     }
 }
@@ -44,7 +43,6 @@ try {
     Start-Process "C:\Windows\SysWOW64\OneDriveSetup.exe" -ArgumentList " /uninstall" -Wait
     Check-OneDrive
 } catch {
-    Write-Host "C:\Windows\SysWOW64\OneDriveSetup.exe returned the following error $_"
     LogWrite "C:\Windows\SysWOW64\OneDriveSetup.exe returned the following error $_"
     }
 }
@@ -54,7 +52,6 @@ try {
     LogWrite "Installing OneDrive"
     Start-Process -PassThru -FilePath "C:\Windows\SysWOW64\OneDriveSetup.exe" "/S" | Wait-Process
 } catch {
-    Write-Host "C:\Windows\SysWOW64\OneDriveSetup.exe returned the following error $_"
     LogWrite "C:\Windows\SysWOW64\OneDriveSetup.exe returned the following error $_"
     }
 
