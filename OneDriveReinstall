@@ -1,6 +1,6 @@
 # Script for OneDrive reinstall
 # Created by Marek.Kapusta@fujitsu.com
-# Last update: 10.03.2023 16:22
+# Last update: 22.03.2023 12:30
 
 # Function to generate a timestamp that is added to the log file
 function Get-TimeStamp {
@@ -25,9 +25,11 @@ function Check-OneDrive {
     if( Test-Path "$env:LOCALAPPDATA\Microsoft\Onedrive\OneDrive.exe" ) 
         {Write-Host "OneDrive is installed"
         LogWrite "OneDrive is installed"
+        return $true
     }
     else {write-host "OneDrive is not installed"
         LogWrite "OneDrive is not installed"
+        return $false
     }
 }
 
@@ -35,15 +37,26 @@ $ErrorActionPreference = 'SilentlyContinue'
 
 LogWrite "** STARTING OneDrive Reinstall Script **"
 
-Check-OneDrive
-
 #Uninstalling OneDrive
-Start-Process "C:\Windows\SysWOW64\OneDriveSetup.exe" -ArgumentList " /uninstall"
-
-Check-OneDrive
+if(check-onedrive -eq $false){
+try {
+    LogWrite "Uninstalling OneDrive"
+    Start-Process "C:\Windows\SysWOW64\OneDriveSetup.exe" -ArgumentList " /uninstall" -Wait
+    Check-OneDrive
+} catch {
+    Write-Host "C:\Windows\SysWOW64\OneDriveSetup.exe returned the following error $_"
+    LogWrite "C:\Windows\SysWOW64\OneDriveSetup.exe returned the following error $_"
+    }
+}
 
 #Installing OneDrive
-Start-Process "C:\Windows\SysWOW64\OneDriveSetup.exe"
+try {
+    LogWrite "Installing OneDrive"
+    Start-Process -PassThru -FilePath "C:\Windows\SysWOW64\OneDriveSetup.exe" "/S" | Wait-Process
+} catch {
+    Write-Host "C:\Windows\SysWOW64\OneDriveSetup.exe returned the following error $_"
+    LogWrite "C:\Windows\SysWOW64\OneDriveSetup.exe returned the following error $_"
+    }
 
 Check-OneDrive
 
