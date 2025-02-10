@@ -5,13 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>XI Łódzkie Dni Uroginekologiczne</title>
     <style type="text/css">
-      body { margin: 0; font-family: Arial, Verdana, Georgia, "Times New Roman", sans-serif; }
+      /* Podstawowe style */
+      body {
+        margin: 0;
+        font-family: Arial, Verdana, Georgia, "Times New Roman", sans-serif;
+        background-color: #f0f0f0; /* Jasnoszare tło dla całego maila */
+      }
+      a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; }
+      
+      /* Style przycisków */
+      .button {
+        display: inline-block;
+        background-color: #008CD2;
+        border: 1px solid #008CD2;
+        border-radius: 40px;
+        padding: 10px 20px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 18px;
+      }
+      .button:hover {
+        background-color: #0072a9; /* delikatna zmiana koloru przy hoverze */
+      }
+      
+      /* Responsywność */
+      @media only screen and (max-width: 600px) {
+        .container {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .responsive-table {
+          width: 100% !important;
+        }
+        .padding {
+          padding: 10px !important;
+        }
+        .button {
+          font-size: 16px !important;
+          padding: 10px 15px !important;
+        }
+      }
     </style>
   </head>
   <body>
-    <table width="600" style="max-width:600px;" border="0" cellspacing="0" cellpadding="0">
+    <!-- Główny kontener z cieniem, by wyróżniał się na tle -->
+    <table class="container responsive-table" width="600" style="max-width:600px; width:600px; background-color:#ffffff; margin:30px auto; box-shadow: 0 2px 6px rgba(0,0,0,0.15);" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td align="center" style="padding:20px;">
+        <td align="center" style="padding:20px;" class="padding">
           <!-- Nagłówek -->
           <p style="font-size:24px; font-weight:bold; color:#000000; margin:0; padding:0;">
             XI Łódzkie Dni Uroginekologiczne
@@ -33,7 +73,7 @@
           <p style="font-size:20px; font-weight:bold; color:#000000; margin:0; padding:0;">
             Dlaczego warto wziąć udział w XI Łódzkich Dniach Uroginekologicznych?
           </p>
-          <ul style="padding-left:20px; text-align:left; color:#000000; font-size:16px; margin:10px 0 0 0;">
+          <ul style="padding-left:20px; text-align:left; color:#000000; font-size:16px; margin:10px 0 0 0; line-height:1.5;">
             <li style="margin-bottom:10px;">
               Zdobędziesz praktyczną wiedzę do codziennej pracy - nauczysz się nowoczesnych metod diagnostycznych i profilaktycznych w uroginekologii, opartych na najnowszych schematach postępowania przygotowanych przez czołowych specjalistów.
             </li>
@@ -59,20 +99,20 @@
           
           <!-- Przycisk Dowiedz się więcej -->
           <p style="text-align:center; margin:20px 0 0 0;">
-            <a href="https://www.konferencja-uroginekologiczna.pl/" style="display:inline-block; background-color:#008CD2; border:1px solid #008CD2; border-radius:40px; padding:10px 20px; color:#ffffff; text-decoration:none; font-size:18px;">
+            <a href="https://www.konferencja-uroginekologiczna.pl/" class="button">
               Dowiedz się więcej ⮕
             </a>
           </p>
           
           <!-- Przycisk Kup bilet -->
           <p style="text-align:center; margin:20px 0 0 0;">
-            <a href="https://zdrowie.expert/uroginekologia-2025-xi-lodzkie-dni-uroginekologiczne-20-22-marca-2025-r-id-34" style="display:inline-block; background-color:#008CD2; border:1px solid #008CD2; border-radius:40px; padding:10px 20px; color:#ffffff; text-decoration:none; font-size:18px;">
+            <a href="https://zdrowie.expert/uroginekologia-2025-xi-lodzkie-dni-uroginekologiczne-20-22-marca-2025-r-id-34" class="button">
               Kup bilet ⮕
             </a>
           </p>
           
           <!-- Panel organizatorów -->
-          <table width="100%" border="0" cellspacing="0" cellpadding="10" style="background-color:#f7f7f7; border:1px solid #cccccc; border-radius:8px; margin-top:30px;">
+          <table class="responsive-table" width="100%" border="0" cellspacing="0" cellpadding="10" style="background-color:#ffffff; border:1px solid #cccccc; border-radius:8px; margin-top:30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
             <tr>
               <td align="center">
                 <p style="font-size:16px; font-weight:bold; color:#000000; margin:0; padding:0;">Konferencja pod patronatem</p>
