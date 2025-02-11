@@ -1,146 +1,206 @@
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>UROGINEKOLOGIA 2025 - XI Łódzkie Dni Uroginekologiczne</title>
-    <style type="text/css">
-      /* Podstawowe style */
-      body {
-        margin: 0;
-        font-family: Arial, Verdana, Georgia, "Times New Roman", sans-serif;
-        background-color: #f0f0f0; /* Jasnoszare tło dla całego maila */
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>UROGINEKOLOGIA 2025 - XI Łódzkie Dni Uroginekologiczne</title>
+  <style type="text/css">
+    /* Reset podstawowy */
+    body, table, p, a {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      outline: 0;
+    }
+    /* Globalne style */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, Verdana, Georgia, "Times New Roman", sans-serif;
+      color: #000;
+      line-height: 1.5;
+    }
+    /* Styl kontenera (table-based layout dla e-maili) */
+    .container {
+      width: 600px;
+      max-width: 600px;
+      background-color: #ffffff;
+      margin: 30px auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      border-collapse: collapse;
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    /* Padding dla zawartości kontenera */
+    .padding {
+      padding: 20px;
+    }
+    /* Style sekcji nagłówka */
+    .header {
+      text-align: center;
+    }
+    .header p.title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .header p.subtitle {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+    .header p.context {
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    /* Main content - teraz z wyśrodkowanym tekstem */
+    .main-content {
+      text-align: center;
+    }
+    .main-content p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    /* Lista wewnątrz głównej treści wyśrodkowana kontener, ale tekst listy pozostanie wyrównany do lewej */
+    .main-content ul {
+      padding-left: 20px;
+      margin: 10px auto;
+      text-align: left;
+      display: inline-block;
+    }
+    .main-content ul li {
+      margin-bottom: 10px;
+    }
+    /* Style przycisków CTA */
+    .button {
+      display: inline-block;
+      background-color: #008CD2;
+      border: 1px solid #008CD2;
+      border-radius: 40px;
+      padding: 10px 20px;
+      color: #ffffff !important;
+      text-decoration: none;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #0072a9;
+    }
+    /* Style dla linków (np. detektory Apple) */
+    a[x-apple-data-detectors] {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+    /* Styl stopki */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .footer p {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+    }
+    /* Responsywność */
+    @media only screen and (max-width: 600px) {
+      .container {
+        width: 100% !important;
+        max-width: 100% !important;
       }
-      a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; }
-      
-      /* Style przycisków */
       .button {
-        display: inline-block;
-        background-color: #008CD2;
-        border: 1px solid #008CD2;
-        border-radius: 40px;
-        padding: 10px 20px;
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 18px;
+        font-size: 16px !important;
+        padding: 10px 15px !important;
       }
-      .button:hover {
-        background-color: #0072a9;
+      .padding {
+        padding: 10px !important;
       }
-      
-      /* Responsywność */
-      @media only screen and (max-width: 600px) {
-        .container {
-          width: 100% !important;
-          max-width: 100% !important;
-        }
-        .responsive-table {
-          width: 100% !important;
-        }
-        .padding {
-          padding: 10px !important;
-        }
-        .button {
-          font-size: 16px !important;
-          padding: 10px 15px !important;
-        }
+    }
+    /* Dodatkowe media query dla bardzo małych urządzeń */
+    @media only screen and (max-width: 400px) {
+      .header p.title {
+        font-size: 20px;
       }
-    </style>
-  </head>
-  <body>
-    <!-- Główny kontener -->
-    <table class="container responsive-table" width="600" style="max-width:600px; width:600px; background-color:#ffffff; margin:30px auto; box-shadow: 0 2px 6px rgba(0,0,0,0.15);" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td align="center" style="padding:20px;" class="padding">
-          
-          <!-- Nowy nagłówek -->
-          <p style="font-size:24px; font-weight:bold; color:#000000; margin:0; padding:0;">
-            UROGINEKOLOGIA 2025
-          </p>
-          <p style="font-size:16px; font-weight:bold; color:#000000; margin:5px 0 0 0; padding:0;">
+      .header p.subtitle, .header p.context, .main-content p {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!--[if mso]>
+  <table><tr><td>
+  <![endif]-->
+  <table role="presentation" class="container" aria-label="Uroginekologia 2025 - XI Łódzkie Dni Uroginekologiczne">
+    <tr>
+      <td class="padding">
+        <!-- Nagłówek -->
+        <header class="header">
+          <p class="title" aria-label="UROGINEKOLOGIA 2025">UROGINEKOLOGIA 2025</p>
+          <p class="subtitle" aria-label="2nd Joint Meeting of The Polish Society of Gynecologists and Obstetricians and European Urogynaecological Association (EUGA)">
             2nd Joint Meeting of The Polish Society of Gynecologists and Obstetricians and European Urogynaecological Association (EUGA)
           </p>
-          <p style="font-size:16px; font-weight:bold; color:#000000; margin:5px 0 0 0; padding:0;">
-            XI Łódzkie Dni Uroginekologiczne
+          <p class="subtitle" aria-label="XI Łódzkie Dni Uroginekologiczne">XI Łódzkie Dni Uroginekologiczne</p>
+          <p class="context" aria-label="11 lat razem!">11 lat razem!</p>
+        </header>
+        <hr style="border:0; border-top:1px solid #cccccc; margin:20px 0; width:100%;" />
+        <!-- Główna treść -->
+        <main class="main-content">
+          <p>
+            <a href="https://www.konferencja-uroginekologiczna.pl/" style="color:#008CD2; text-decoration:none;" aria-label="Odwiedź stronę konferencji">
+              Odwiedź stronę konferencji
+            </a>
           </p>
-         
-          <p style="font-size:16px; color:#000000; margin:5px 0 10px 0; padding:0;">
-            11 lat razem!
+          <p>20 - 22 marca 2025 roku</p>
+          <p>
+            Lokalizacja: Hotel Ambasador Premium<br>
+            płk. Jana Kilińskiego 145, 90-315 Łódź 
+            (<a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x471bcb2c91fb5049:0xb5de7ab652b13c7c?sa=X&ved=1ictx=111" style="color:#008CD2; text-decoration:none;" aria-label="Google Maps">
+              Google Maps
+            </a>)
           </p>
- 
-          
-          <!-- Pozostała część maila -->
-          <p style="font-size:16px; color:#000000; margin:10px 0 0 0; padding:0;">
-            <a href="https://www.konferencja-uroginekologiczna.pl/" style="color:#008CD2; text-decoration:none;">Odwiedź stronę konferencji</a>
-          </p>
-          <p style="font-size:16px; color:#000000; margin:10px 0 0 0; padding:0;">
-            20 - 22 marca 2025 roku
-          </p>
-          <p style="font-size:16px; color:#000000; margin:10px 0 0 0; padding:0;">
-            Lokalizacja: Hotel Ambasador Premium<br>płk. Jana Kilińskiego 145, 90-315 Łódź 
-            (<a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x471bcb2c91fb5049:0xb5de7ab652b13c7c?sa=X&ved=1ictx=111" style="color:#008CD2; text-decoration:none;">Google Maps</a>)
-          </p>
-          
           <hr style="border:0; border-top:1px solid #cccccc; margin:20px 0; width:100%;" />
-          
-          <!-- Treść główna -->
-          <p style="font-size:20px; font-weight:bold; color:#000000; margin:0; padding:0;">
-            Dlaczego warto wziąć udział?
-          </p>
-          <ul style="padding-left:20px; text-align:left; color:#000000; font-size:16px; margin:10px 0 0 0; line-height:1.5;">
-            <li style="margin-bottom:10px;">
-              Zdobędziesz praktyczną wiedzę do codziennej pracy - nauczysz się nowoczesnych metod diagnostycznych i profilaktycznych w uroginekologii, opartych na najnowszych schematach postępowania przygotowanych przez czołowych specjalistów.
-            </li>
-            <li style="margin-bottom:10px;">
-              Doświadczysz spotkania z wybitnymi praktykami - wykłady prowadzone przez ekspertów wzbogacone będą analizą rzeczywistych przypadków klinicznych, co pozwoli Ci zrozumieć skuteczne rozwiązania najtrudniejszych problemów medycznych.
-            </li>
-            <li style="margin-bottom:10px;">
-              Poznasz interdyscyplinarne podejście do leczenia - dowiesz się, jak współpracować z lekarzami innych specjalizacji, aby skutecznie diagnozować i leczyć złożone schorzenia wymagające wiedzy z różnych dziedzin medycyny.
-            </li>
-            <li style="margin-bottom:10px;">
-              Zdobędziesz wiedzę o najnowszych trendach w farmakoterapii - poznasz nowoczesne leki, ich wskazania, optymalne dawkowanie oraz innowacyjne terapie, które możesz od razu wdrożyć w swojej praktyce zawodowej.
-            </li>
-            <li style="margin-bottom:10px;">
-              Skonsultujesz trudne przypadki ze swojej praktyki - podczas sesji panelowych uzyskasz wskazówki i wsparcie od ekspertów, które pomogą Ci w rozwiązywaniu codziennych wyzwań zawodowych.
-            </li>
-            <li style="margin-bottom:10px;">
-              Zyskasz dostęp do materiałów z konferencji - jeśli zdecydujesz się na zakup nagrań, będziesz mógł wracać do omawianych treści w dowolnym momencie, aby utrwalić i pogłębić zdobytą wiedzę.
-            </li>
-            <li style="margin-bottom:10px;">
-              Otrzymasz e-certyfikat oraz 50 punktów edukacyjnych PTGiP - które będą potwierdzeniem Twojego zaangażowania w rozwój zawodowy.
-            </li>
+          <p style="font-size:20px; font-weight:bold;">Dlaczego warto wziąć udział?</p>
+          <ul>
+            <li>Zdobycie praktycznej wiedzy do codziennej pracy poprzez nowoczesne metody diagnostyczne i profilaktyczne.</li>
+            <li>Spotkania z wybitnymi praktykami oraz analiza rzeczywistych przypadków klinicznych.</li>
+            <li>Poznanie interdyscyplinarnego podejścia do leczenia i współpracy z lekarzami różnych specjalności.</li>
+            <li>Aktualności z najnowszych trendów w farmakoterapii z praktycznymi poradami.</li>
+            <li>Możliwość konsultacji trudnych przypadków przy wsparciu ekspertów.</li>
+            <li>Dostęp do materiałów z konferencji, w tym nagrań.</li>
+            <li>Otrzymanie e-certyfikatu oraz 50 punktów edukacyjnych PTGiP.</li>
           </ul>
-          
-          <!-- Przycisk Dowiedz się więcej -->
-          <p style="text-align:center; margin:20px 0 0 0;">
-            <a href="https://www.konferencja-uroginekologiczna.pl/" class="button">
+          <p style="text-align:center; margin:20px 0;">
+            <a href="https://www.konferencja-uroginekologiczna.pl/" class="button" aria-label="Dowiedz się więcej">
               Dowiedz się więcej ⮕
             </a>
           </p>
-          
-          <!-- Przycisk Kup bilet -->
-          <p style="text-align:center; margin:20px 0 0 0;">
-            <a href="https://zdrowie.expert/uroginekologia-2025-xi-lodzkie-dni-uroginekologiczne-20-22-marca-2025-r-id-34" class="button">
+          <p style="text-align:center; margin:20px 0;">
+            <a href="https://zdrowie.expert/uroginekologia-2025-xi-lodzkie-dni-uroginekologiczne-20-22-marca-2025-r-id-34" class="button" aria-label="Kup bilet">
               Kup bilet ⮕
             </a>
           </p>
-          
-          <!-- Panel organizatorów -->
-          <table class="responsive-table" width="100%" border="0" cellspacing="0" cellpadding="10" style="background-color:#ffffff; border:1px solid #cccccc; border-radius:8px; margin-top:30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        </main>
+        <!-- Stopka z panelem organizatorów -->
+        <footer class="footer">
+          <table role="presentation" width="100%" cellpadding="10" style="background-color:#ffffff; border:1px solid #cccccc; border-radius:8px; margin-top:30px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
             <tr>
               <td align="center">
-                <p style="font-size:16px; font-weight:bold; color:#000000; margin:0; padding:0;">Konferencja pod patronatem</p>
-                <p style="font-size:14px; color:#000000; margin:10px 0 0 0; padding:0; line-height:1.5;">
-                  &bull; <a href="https://www.eugaoffice.org/" style="color:#008CD2; text-decoration:none;">European Urogynaecological Association (EUGA)</a><br>
-                  &bull; <a href="https://www.ptgin.pl/" style="color:#008CD2; text-decoration:none;">Sekcja Uroginekologiczna Polskiego Towarzystwa Ginekologów i Położników</a><br>
-                  &bull; <a href="https://uroginekologia.info.pl/" style="color:#008CD2; text-decoration:none;">Centrum Medyczne "Być kobietą..."</a>
+                <p style="font-size:16px; font-weight:bold; margin:0;">Konferencja pod patronatem</p>
+                <p style="font-size:14px; margin-top:10px; line-height:1.5;">
+                  &bull; <a href="https://www.eugaoffice.org/" style="color:#008CD2; text-decoration:none;" aria-label="European Urogynaecological Association (EUGA)">European Urogynaecological Association (EUGA)</a><br>
+                  &bull; <a href="https://www.ptgin.pl/" style="color:#008CD2; text-decoration:none;" aria-label="Sekcja Uroginekologiczna Polskiego Towarzystwa Ginekologów i Położników">Sekcja Uroginekologiczna Polskiego Towarzystwa Ginekologów i Położników</a><br>
+                  &bull; <a href="https://uroginekologia.info.pl/" style="color:#008CD2; text-decoration:none;" aria-label="Centrum Medyczne &quot;Być kobietą...&quot;">Centrum Medyczne "Być kobietą..."</a>
                 </p>
               </td>
             </tr>
           </table>
-          
-        </td>
-      </tr>
-    </table>
-  </body>
+          <p>&copy; 2025 UROGINEKOLOGIA. Wszelkie prawa zastrzeżone.</p>
+        </footer>
+      </td>
+    </tr>
+  </table>
+  <!--[if mso]>
+  </td></tr></table>
+  <![endif]-->
+</body>
 </html>
