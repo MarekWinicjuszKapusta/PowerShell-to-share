@@ -7,10 +7,12 @@ if (!(Test-Path $logDir)) {
 
 # Set the target host and duration
 $TargetHost = "onet.pl"
-$durationSeconds = 60
+$durationSeconds = 3600
 
 # Initialize counters
 $timeoutCount = 0
+$totalResponseTime = 0
+$successCount = 0
 
 # Start the ping loop
 for ($i = 0; $i -lt $durationSeconds; $i++) {
@@ -19,6 +21,8 @@ for ($i = 0; $i -lt $durationSeconds; $i++) {
 
     if ($pingResult) {
         $reply = "Reply from $($pingResult.Address): time=$($pingResult.ResponseTime)ms"
+        $totalResponseTime += $pingResult.ResponseTime
+        $successCount++
     } else {
         $reply = "Request timed out."
         $timeoutCount++
@@ -33,14 +37,21 @@ for ($i = 0; $i -lt $durationSeconds; $i++) {
 
 # Calculate and display summary
 $percentageTimeout = [math]::Round(($timeoutCount / $durationSeconds) * 100, 2)
-$summary = @"
+$successRate = [math]::Round((100 - $percentageTimeout), 2)
+if ($successCount -gt 0) {
+    $averageMs = [math]::Round($totalResponseTime / $successCount, 2)
+} else {
+    $averageMs = "N/A"
+}
 
+$summary = @"
 === PING SUMMARY ===
 Total pings:    $durationSeconds
 Timeouts:       $timeoutCount
-Success rate:   {0:N2}%
+Success rate:   $successRate%
 Timeout rate:   $percentageTimeout%
-"@ -f (100 - $percentageTimeout)
+Average ms:     $averageMs
+"@
 
 Write-Host $summary
 Add-Content -Path $logPath -Value $summary
